@@ -17,15 +17,11 @@ class BookShelfChanger extends Component
         // Default the current shelf to "none"
         let currentShelf = 'none'
 
-        // Go through array of books and if book is in list, set the shelf and exit
-        for(let elem of books)
+        const foundBook = books.find(function(element)
         {
-            if (elem.id === book.id)
-            {
-                currentShelf = elem.shelf
-                break // exit for loop
-            }
-        }
+            return element.id === book.id
+        })
+        currentShelf = foundBook.shelf
 
         return (
             <div className="book-shelf-changer">

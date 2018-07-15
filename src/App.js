@@ -26,13 +26,10 @@ class BooksApp extends Component
     changeShelf = (newBook, newShelf) =>
     {
         // a book:object and a shelf:string
-        BooksAPI.update(newBook, newShelf).then(res =>
+        BooksAPI.update(newBook, newShelf).then(res => // update the backend
         {
             newBook.shelf = newShelf
-
-            const updatedBooks = this.state.books.filter(book => book.id !== newBook.id)
-
-            updatedBooks.push(newBook);
+            const updatedBooks = this.state.books.filter(book => book.id !== newBook.id).concat(newBook);
             // update the books and trigger render
             this.setState({ books: updatedBooks })
         })
@@ -64,7 +61,7 @@ class BooksApp extends Component
                             {
                                 const bookListings = books.filter( book => book.shelf === shelf.cat)
                                   return  (
-                                      <div className="bookshelf" key={ index }>
+                                      <div className="bookshelf" key={ shelf.cat }>
                                             <h2 className="bookshelf-title">{ shelf.name }</h2>
                                             <div className="bookshelf-books">
                                                 <BookShelf

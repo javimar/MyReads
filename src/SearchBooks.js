@@ -20,13 +20,13 @@ class SearchBooks extends Component
 
     getBooks = (evt) =>
     {
-        const query = evt.target.value.trim()
+        let query = evt.target.value
         this.setState({ query: query })
 
         // run the search if user types something
         if(query)
         {
-            BooksAPI.search(query, 30).then((books) =>
+            BooksAPI.search(query.trim(), 30).then((books) =>
             {
                 if(books.length > 0)
                 {
@@ -37,19 +37,16 @@ class SearchBooks extends Component
                     this.setState({ newBooks: [] })
                 }
             })
-
-            // if query is empty => reset state to default
         }
         else
         {
-            this.setState({newBooks: [] })
-            this.setState({ query: '' })
+            this.setState({ newBooks: [], query: '' })
         }
       }
 
     render()
     {
-
+        // destructuring properties from objects  ES6
         const { query, newBooks } = this.state
         const { books, changeShelf } = this.props
 
